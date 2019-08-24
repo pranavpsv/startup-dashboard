@@ -103,24 +103,22 @@ function filterTopK(dataset) {
 function draw() {
     // append the svg object to the body of the page
     var margin = {
-            top: 60,
+            top: 20,
             right: 30,
-            bottom: 70,
+            bottom: 0,
             left: 150
         },
         width = 600 - margin.left - margin.right,
-        height = 450 - margin.top - margin.bottom;
+        height = 400 - margin.top - margin.bottom;
 
     svg1 = d3.select("#bar")
-        .classed("svg-container", true)
+        // .classed("svg-container", true)
         .append("svg")
-        .attr("preserveAspectRatio", "xMinYMin meet")
+        // .attr("preserveAspectRatio", "xMinYMin meet")
         .attr("class", "barChart")
-        .attr("viewBox", "0 0 600 400")
+        .attr("viewBox", "0 0 600 500")
    // Class to make it responsive.
-        .classed("svg-content-responsive", true)
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
+        // .classed("svg-content-responsive", true)
         .append("g")
         .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");

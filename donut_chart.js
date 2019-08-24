@@ -40,6 +40,8 @@ function createDonut(donutChartData) {
   d3.select(".pie").remove();
   var donutsvg = d3.select("#donut")
     .append('svg')
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .attr("viewBox", "-20 0 400 1")
     .attr('class', 'pie')
     .attr('width', width)
     .attr('height', height);

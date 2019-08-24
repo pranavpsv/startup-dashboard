@@ -252,16 +252,14 @@ div.row {
 div.card {
   border-radius: 15px;
 }
-
 p.card-text {
   text-align: center;
 }
 
 .cards {
-  display: block;
   position: relative;
-  width: 400px;
-  height: 500px;
+  max-width: 400px;
+  max-height: 500px; 
   background-color: #f2f8f9;
   text-align: center;
   z-index: 0;
