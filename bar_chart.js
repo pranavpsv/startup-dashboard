@@ -7,7 +7,7 @@ var programmedChange = false;
 // Update the current slider value (each time you drag the slider handle)
 slider.onchange = function () {
     output.innerHTML = this.value;
-    sliderValue =  this.value;
+    sliderValue = this.value;
     d3.select(".barChart").remove();
     if (sliderValue == 0) {
         d3.select("#bar")
@@ -18,7 +18,7 @@ slider.onchange = function () {
             .fill("black");
     } else {
         d3.select("#no-results").remove();
-         draw();
+        draw();
     }
     $('select').val("All");
     citySelect.set("All");
@@ -74,7 +74,7 @@ function dataFilter(data, config) {
     const filterKeys = Object.keys(filteredConfig);
     filterKeys.forEach(key => {
         if (key != "year") {
-        data = data.filter(datum => datum[key] === filteredConfig[key]);
+            data = data.filter(datum => datum[key] === filteredConfig[key]);
         } else {
             data = data.filter(datum => datum.Date.includes(filteredConfig[key]));
         }
@@ -112,8 +112,13 @@ function draw() {
         height = 450 - margin.top - margin.bottom;
 
     svg1 = d3.select("#bar")
+        .classed("svg-container", true)
         .append("svg")
+        .attr("preserveAspectRatio", "xMinYMin meet")
         .attr("class", "barChart")
+        .attr("viewBox", "0 0 600 400")
+   // Class to make it responsive.
+        .classed("svg-content-responsive", true)
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
