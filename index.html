@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+
+<head>
+
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/d3-scale-chromatic@1.4.0/dist/d3-scale-chromatic.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/combine/npm/jquery,npm/lodash,npm/g1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.23.0/slimselect.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.23.0/slimselect.min.css" rel="stylesheet">
+  </link>
+
+
+  <script src="https://d3js.org/d3.v5.js"></script>
+
+  <title>Job Market Dashboard</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home</a>
+        </li>
+        <li class="h4" style="color: white; margin-left: 25em;"><a href="#" style="color: white;">Dashboard</a></li>
+      </ul>
+    </div>
+  </nav>
+  <h2 class="display-4">Startup Scene in India <span class="h6">(2015 - 2017)</span></h2>
+  <div class="container-fluid">
+    <hr>
+    <h2>Quick Tidbits</h2>
+    <div class="row">
+      <div class="col-3">
+
+        <div class="card cards shadow-lg" style="width: 18rem; margin: auto; text-align: center;">
+          <div class="card-body">
+            <h5 class="card-title font-weight-bold">Total Funding</h5>
+            <h6 class="card-subtitle mb-2 text-muted"> <span id="totalYearFunding">Total (2015 - 2017)</span> | (in
+              Billion $)</h6>
+            <p class="display-4" id="totalValueFunding">19.254</p>
+            <h5 class="years-comparison"></h5>
+            <p class="card-text valueFundingText"></p>
+            <p class="h1 down totalYearsFunding">&dHar;</p>
+            <!-- <i class="arrow down totalYearsFunding "></i> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="card cards shadow-lg" style="margin: auto; text-align: center;">
+          <div class="card-body" id="donut">
+            <h5 class="card-title font-weight-bold">Investment Type Distribution</h5>
+            <h6 class="card-subtitle mb-2 text-muted" id="yearInvestmentType">Total (2015 - 2017)</h6>
+            <p class="h1 down yearInvestmentTypes">&dHar;</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="card cards shadow-lg" style="width: 18rem; margin: auto; text-align: center;">
+          <div class="card-body">
+            <h5 class="card-title font-weight-bold">Total Number of Investment Deals</h5>
+            <h6 class="card-subtitle mb-2 text-muted"> <span id="yearTransactions">Total (2015 - 2017)</span></h6>
+            <p class="card-text  display-4" id="totalTransactions">2372</p>
+            <p class="card-text numInvestmentText"></p>
+            <p class="h1 down totalTransactions">&dHar;</p>
+          </div>
+        </div>
+        <!-- average funding by different filters. -->
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+
+      <div class="col-6">
+        <div class="card border-dark mb-3" style="max-width: 720px; height: 950px;">
+          <div class="card-header">
+            <h2>What are the largest Industries in the startup market? </h2>
+          </div>
+          <div class="card-body text-dark">
+            <svg width="670" height="670" id="circle_pack"></svg>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="card border-dark mb-3" style="max-width: 700px; height: 950px;">
+          <div class="card-header">
+            <h2> Firms that Received the Highest Funding <span style="font-size: 18px;">(at any given time) </span>($)
+            </h2>
+          </div>
+          <div class="card-body text-dark">
+            <div class="range-slider" style="margin: 10px;">
+              <p class="font-weight-bold" style="text-align: center; padding-right: 20px;">Number of Firms</p>
+              <input class="range-slider__range" id="slider" type="range" value="5" min="0" max="10">
+              <span class="range-slider__value" id="slider-span">5</span>
+            </div>
+            <div class="filters">
+              <div id="dropdown" class="city-filter"><label for="city-select">By City:</label>
+                <select id="city-select" name="state" class="filter-data">
+                  <option value="All">All</option>
+                  <option v-for="city in cities" :value="city">{{city}}</option>
+                </select></div>
+              <div id="dropdown" class="industry-filter"><label for="industry-select">By Industry:</label>
+                <select id="industry-select" class="filter-data">
+                  <option value="All">All</option>
+                  <option v-for="industry in industries" :value="industry">{{industry}}</option>
+                </select></div>
+              <div id="dropdown" class="funding-type-filter"><label for="investment-type-select">By Funding
+                  Type:</label>
+                <select id="investment-type-select" class="filter-data">
+                  <option value="All">All</option>
+                  <option v-for="fundingType in fundingTypes" :value="fundingType" v-if="fundingType != ''">
+                    {{fundingType}}</option> -->
+                </select></div>
+              <div id="dropdown"><label for="year-select">By Year:</label>
+                <select id="year-select" class="filter-data">
+                  <option value="All">All</option>
+                  <option value="2017">2017</option>
+                  <option value="2016">2016</option>
+                  <option value="2015">2015</option>
+                </select></div>
+            </div>
+            <div id="bar"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-1"></div>
+      <div class="col-2"></div>
+    </div>
+  </div>
+
+
+
+  <!-- Create a div where the graph will take place -->
+  </div>
+  <script>
+    var citySelect;
+    var industrySelect;
+    var yearSelect;
+    var investmentTypeSelect;
+
+    (async function () {
+      data = await d3.csv("https://raw.githubusercontent.com/pranavpsv/Indian-startup-dashboard/master/public/bar_chart_filters_data.csv");
+      const cities = [...new Set(data.map(d => d.CityLocation))];
+      const industries = [...new Set(data.map(d => d.IndustryVertical))];
+      const fundingTypes = [...new Set(data.map(d => d.InvestmentType))];
+      const filters = new Vue({
+        el: ".filters",
+        data: {
+          cities: cities,
+          industries: industries,
+          fundingTypes: fundingTypes
+        }
+      })
+      citySelect = new SlimSelect({
+        select: "#city-select"
+      });
+
+      industrySelect = new SlimSelect({
+        select: "#industry-select"
+      });
+      investmentTypeSelect = new SlimSelect({
+        select: "#investment-type-select"
+      });
+      yearSelect = new SlimSelect({
+        select: "#year-select"
+      });
+
+      let funding = {
+        year2015Funding: 8.975,
+        year2016Funding: 4.264,
+        year2017Funding: 6.015,
+        yearTotalFunding: 19.254
+      }
+
+      let transactions = {
+        year2015Transactions: 936,
+        year2016Transactions: 993,
+        year2017Transactions: 443,
+        yearTotalTransactions: 2372
+      }
+      let valueFundingDefaultText =
+        "2015-2017 were exciting times for the startup market in India. In 2017, Paytm and Flipkart got the highest funding ever. 2016 had the most number of investment deals whereas 2015 saw the highest amount of Funding."
+      let numInvestmentDefaultText =
+        "Unsurprisingly, the majority investment type was Seed Funding from 2015-2017. Even though seed funding investment levels are a lot lower than private equity, it is healthy that more than a 1000 startups were supported in their nascent stages by investors."
+      $(".numInvestmentText")[0].innerHTML = numInvestmentDefaultText;
+      $(".valueFundingText")[0].innerHTML = valueFundingDefaultText;
+      $(".totalYearsFunding").on("click", async function (event) {
+        let year = $("#totalYearFunding")[0].innerHTML;
+        year = String(year).includes("Total") ? 2018 : Number(year);
+        year = year == 2015 ? "Total (2015 - 2017)" : (year - 1)
+        $("#totalYearFunding")[0].innerHTML = year;
+        year = String(year).includes("Total") ? "Total" : year;
+        $("#totalValueFunding")[0].innerHTML = funding["year" + year + "Funding"];
+        if (year == 2017) {
+          $(".valueFundingText")[0].innerHTML =
+            "2017 was a relief in comparison to 2016. Higher amount of total funding despite a much lower number of investments. A reason could be that this year had the highest proportion of Private Equity investments."
+        } else if (year == 2016) {
+          // $(".years-comparison")[0].innerHTML = 
+          $(".valueFundingText")[0].innerHTML =
+            "2016 was a dissapointing year. It had a huge drop in total funding from 2015. On the positive side, 2016 had the highest number of investment deals and highest number of Seed Funding deals. This year shows investors' confidence in many budding startups."
+        } else if (year == 2015) {
+          $(".valueFundingText")[0].innerHTML =
+            "The startup scene in 2015 was booming. It had the highest total funding from 2015-2017. It had more than double the amount of funding than 2016 with fewer number of investments. A major reason could be that there was about 7% more private equity deals in 2015."
+        } else {
+          $(".valueFundingText")[0].innerHTML = valueFundingDefaultText;
+        }
+      });
+
+      $(".totalTransactions").on("click", () => {
+        let year = $("#yearTransactions")[0].innerHTML;
+        year = String(year).includes("Total") ? 2018 : Number(year);
+        year = year == 2015 ? "Total (2015 - 2017)" : (year - 1)
+        $("#yearTransactions")[0].innerHTML = year;
+        year = String(year).includes("Total") ? "Total" : year;
+        $("#totalTransactions")[0].innerHTML = transactions["year" + year + "Transactions"];
+        if (year == 2015) {
+          $(".numInvestmentText")[0].innerHTML =
+            "2015 was an exceptional year for startups. Even though there was a lower number of deals than 2016, the total amount of funding in 2015 was greater than 2016. The average deal in 2015 was 9.59 million USD. Apart from that, Flipkart received the highest funding in 2015 - $ 700,000,000."
+        } else if (year == 2016) {
+          $(".numInvestmentText")[0].innerHTML =
+            "Although 2016 had 57 more deals than 2015, it had lower total funding. The average investment in 2016 was 4.29 million USD. Snapdeal received the highest funding in 2016 - $ 200,000,000. The value is nowhere close to the best deals of 2015 and 2017.";
+        } else if (year == 2017) {
+          $(".numInvestmentText")[0].innerHTML =
+            "The startup market in 2017 had a much lower volume of Investments, but the total funding was sizable. The average deal in 2017 was 13.5 million USD. This was the highest amount from 2015-2017. 2017 had the highest investment deals with Paytm and Flipkart - $ 1,400,000,000";
+
+        } else {
+          $(".numInvestmentText")[0].innerHTML = numInvestmentDefaultText;
+
+        }
+      });
+    }())
+  </script>
+
+  <script src="circle_pack.js"></script>
+  <script src="bar_chart.js"></script>
+  <script src="donut_chart.js"></script>
+
+</body>
+
+</html>
